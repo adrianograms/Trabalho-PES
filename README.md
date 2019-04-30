@@ -32,7 +32,6 @@ $ pip3 install radon
 
 
 # Features:
-Quadro de features e seu estado de implementação:
 | Features              | Backend | GUI |
 |:----------------------|:-------:|:---:|
 | git-clone             | ❌      | ❌  |
