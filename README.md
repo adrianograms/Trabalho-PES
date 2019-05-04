@@ -3,7 +3,7 @@ A ferramenta [decidir o nome] tem a finalidade de tornar o uso do git mais fáci
 
 
 # Dependências:
-#### Gerenciadas pelo pip
+#### Gerenciadas pelo pip3
 ##### [PyGit2](https://www.pygit2.org/)
 `
 $ pip3 install pygit2
@@ -16,8 +16,12 @@ $ pip3 install pyinstaller
 `
 $ pip3 install radon
 `
+##### [coverage](https://coverage.readthedocs.io/en/latest/)
+`
+$ pip3 install coverage
+`
 
-#### Externas
+#### Externas:
 ##### [libgit2](https://libgit2.org/)
 ##### [GTK+](https://www.gtk.org/)
 
@@ -61,10 +65,13 @@ $ pip3 install radon
 Ferramenta para o desenvolvimento de GUIs para o GTK+ toolkit.
 
 ##### LGTM
-Ferramenta de análise de código, quando a seguarança e erros communs a lógica da linguagem, de maneira automática.
+Ferramenta de análise estática de  código, quanto a seguarança e erros communs a lógica da linguagem, de maneira automática.
 
 ##### radon
-Ferramenta para computação de várias métricas de código.
+Ferramenta para computação de várias métricas de código, complexidade ciclomática e métricas halstead .
+
+##### coverage
+Ferramenta de análise de cobertura de execução de código e de testes.
 
 
 # Plataformas Suportadas
