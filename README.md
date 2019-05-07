@@ -34,6 +34,8 @@ $ pip3 install coverage
 * Python 3.6 (PyGit2 apenas suporta Python 2.7 e 3.6)
 * PyUnit (unittest)
 
+# Estrutura do sistema
+![Diagrama do programa](Diagrama_Trabalho.jpeg)
 
 # Features:
 | Features              | Backend | GUI |
