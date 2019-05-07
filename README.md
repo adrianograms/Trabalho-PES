@@ -1,5 +1,5 @@
-# [TODO: decidir o nome da ferramenta]
-A ferramenta [decidir o nome] tem a finalidade de tornar o uso do git mais fácil e intuitivo.
+# vgit
+A ferramenta vgit tem a finalidade de tornar o uso do git mais fácil e intuitivo.
 
 
 # Dependências:
@@ -77,7 +77,7 @@ Ferramenta de análise de cobertura de execução de código e de testes.
 
 
 # Plataformas Suportadas
-[nome_da_ferramenta] está disponível para os seguintes sistemas operacionais:
+vgit está disponível para os seguintes sistemas operacionais:
 * Windows 10
 * GNU/Linux
 
