@@ -1,0 +1,2 @@
+[2019-09-04 14:39:12] clonning from -> https://github.com/Mulling/neander to -> /home/mulling/vgit/clone_test
+[2019-09-04 14:39:14] clone finished
