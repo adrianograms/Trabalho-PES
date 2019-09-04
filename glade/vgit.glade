@@ -127,7 +127,7 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="vgit_clone_start">
-                    <property name="label" translatable="yes">button</property>
+                    <property name="label" translatable="yes">Clone</property>
                     <property name="width_request">80</property>
                     <property name="height_request">32</property>
                     <property name="visible">True</property>
@@ -148,7 +148,7 @@
               <object class="GtkLabel">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Clone</property>
+                <property name="label" translatable="yes">Clonning</property>
               </object>
               <packing>
                 <property name="tab_fill">False</property>
@@ -168,7 +168,7 @@
               <object class="GtkLabel">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Init</property>
+                <property name="label" translatable="yes">New repository</property>
               </object>
               <packing>
                 <property name="position">1</property>
