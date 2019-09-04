@@ -6,6 +6,6 @@ setup(
     description='visual git',
     license="MIT",
     author='Grams & Mulling, Inc.',
-    packages=['foo'],
+    packages=['vgit'],
     install_requires=['gi', 'pygit2', 'radon', 'coverage'],
 )
