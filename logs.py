@@ -1,35 +1,48 @@
-from time import gmtime, strftime
-
+import time
 
 class vgit_logger:
     def __init__(self):
         with open('log/vgit_logs.txt', 'r') as file:
             content = file.readlines()
-            file.close()
 
         self.logs = [line for line in content]
 
+    def current_time(self):
+        return time.strftime("[%Y-%m-%d %H:%M:%S]", time.localtime())
+
     def vgit_load_logs(self, vgit_log_cb):
+        """load_the_logs when the program starts"""
         for line in self.logs:
             vgit_log_cb(line)
 
     def vgit_close_logs(self):
+        """save the logs when the program closes"""
         with open('log/vgit_logs.txt', 'w') as file:
             file.writelines(self.logs)
             file.close()
 
     def vgit_clone_started(self, url, path, vgit_log_cb):
-        time = strftime("[%Y-%m-%d %H:%M:%S]", gmtime())
+        """lon when clone has started"""
+        log = self.current_time() + ' clonning from -> ' + url + ' ' + 'to -> ' + path + '\n'
+        self.logs.append(log)
 
-        self.log = time + ' clonning from -> ' + url + ' ' + 'to -> ' + path + '\n'
-        self.logs.append(self.log)
+        vgit_log_cb(log)
 
-        vgit_log_cb(self.log)
+    def vgit_clone_finish(self, vgit_log_cb):
+        """log when clone has finished """
+        log = current_time() + ' clone finished' + '\n'
 
-    def vigt_clone_finish(self, vgit_log_cb):
-        time = strftime("[%Y-%m-%d %H:%M:%S]", gmtime())
+        self.logs.append(log)
 
-        self.log = time + ' clone finished' + '\n'
-        self.logs.append(self.log)
+        vgit_log_cb(log)
 
-        vgit_log_cb(self.log)
+    def vgit_general_error(self, what, vgit_log_cb):
+        """general error log"""
+        self.logs.append(what)
+        vgit_log_cb(what)
+
+    def vgit_init(self, path, vgit_log_cb):
+        log = self.current_time() + 'repository created on -> ' + path + '\n'
+        self.logs.append(log)
+
+        vgit_log_cb(log)

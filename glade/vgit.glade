@@ -155,10 +155,62 @@
               </packing>
             </child>
             <child>
-              <object class="GtkLabel">
+              <object class="GtkFixed">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Init goes here</property>
+                <child>
+                  <object class="GtkEntry" id="vgit_init_name">
+                    <property name="width_request">400</property>
+                    <property name="height_request">32</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="placeholder_text" translatable="yes">name</property>
+                  </object>
+                  <packing>
+                    <property name="x">21</property>
+                    <property name="y">12</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="vgit_init_start">
+                    <property name="label" translatable="yes">Init</property>
+                    <property name="width_request">80</property>
+                    <property name="height_request">32</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <signal name="clicked" handler="vgit_init_start_clicked_cb" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="x">341</property>
+                    <property name="y">57</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkSwitch" id="vgit_init_bare">
+                    <property name="width_request">52</property>
+                    <property name="height_request">24</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                  </object>
+                  <packing>
+                    <property name="x">74</property>
+                    <property name="y">59</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="width_request">90</property>
+                    <property name="height_request">32</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">bare</property>
+                  </object>
+                  <packing>
+                    <property name="x">3</property>
+                    <property name="y">57</property>
+                  </packing>
+                </child>
               </object>
               <packing>
                 <property name="position">1</property>

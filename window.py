@@ -9,7 +9,6 @@ try:
 except ImportError:
     raise
 
-
 class vgit_main:
     def __init__(self):
         # create the builder
@@ -21,37 +20,47 @@ class vgit_main:
         self.window = self.builder.get_object('vgit_main')
         self.vgit_input = self.builder.get_object('vgit_input')
         self.vgit_log = self.builder.get_object('vgit_log')
-        self.logger = logs.vgit_logger()
-
-        def vgit_log_cb(log):
-            self.vgit_log.get_buffer().insert_at_cursor(log)
-
-        self.logger.vgit_load_logs(vgit_log_cb)
-
+        # create the call back
+        self.vgit_log_cb = lambda log: self.vgit_log.get_buffer().insert_at_cursor(log)
         self.window.show()
+        # start the logs
+        self.logger = logs.vgit_logger()
+        self.logger.vgit_load_logs(self.vgit_log_cb)
+        # create the call back
 
     def vgit_main_destroy_cb(self, object, data=None):
+        """call back for when closing the main vgit window"""
         self.logger.vgit_close_logs()
         Gtk.main_quit()
 
     def vgit_clone_start_clicked_cb(self, button, data=None):
+        """call back to star clone"""
+        vgit_clone_url = self.builder.get_object('vgit_clone_url')
+        vgit_dir = self.builder.get_object('vgit_dir')
 
-        self.vgit_clone_url = self.builder.get_object('vgit_clone_url')
-        self.vgit_dir = self.builder.get_object('vgit_dir')
+        url = vgit_clone_url.get_text()
+        path = vgit_dir.get_current_folder()
 
-        self.url = self.vgit_clone_url.get_text()
-        self.path = self.vgit_dir.get_current_folder()
-
-        if self.path is None:
-            # TODO: log error here
-            print('Err')
+        if path is None:
+            self.logger.vgit_general_error("no path name selected\n", self.vgit_log_cb)
             return
 
-        def vgit_log_cb(log):
-            self.vgit_log.get_buffer().insert_at_cursor(log)
+        # log that the clone has started
+        self.logger.vgit_clone_started(url, path, self.vgit_log_cb)
 
-        self.logger.vgit_clone_started(self.url, self.path, vgit_log_cb)
-        # TODO: add erro callback here
-        repo.vgit_repo.vgit_clone(self.path, self.url)
+        repo.vgit_repo.vgit_clone(path, url)
+        # log that the clone has ended
+        self.logger.vigt_clone_finish(self.vgit_log_cb)
 
-        self.logger.vigt_clone_finish(vgit_log_cb)
+    def vgit_init_start_clicked_cb(self, object, data=None):
+        vgit_dir = self.builder.get_object('vgit_dir')
+        vgit_init_bare = self.builder.get_object('vgit_init_bare')
+
+        path = vgit_dir.get_current_folder()
+
+        if path is None:
+            self.logger.vgit_general_error("no path name selected\n", self.vgit_log_cb)
+            return
+
+        repo.vgit_repo.vgit_init(path, False)
+        self.logger.vgit_init(path, self.vgit_log_cb)
