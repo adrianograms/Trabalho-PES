@@ -9,6 +9,11 @@ try:
 except ImportError:
     raise
 
-if __name__ == "__main__":
+
+def main():
     main = vgit_main()
     Gtk.main()
+
+
+if __name__ == "__main__":
+    main()

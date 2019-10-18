@@ -9,6 +9,7 @@ try:
 except ImportError:
     raise
 
+
 class vgit_main:
     def __init__(self):
         # create the builder
@@ -55,6 +56,7 @@ class vgit_main:
     def vgit_init_start_clicked_cb(self, object, data=None):
         vgit_dir = self.builder.get_object('vgit_dir')
         vgit_init_bare = self.builder.get_object('vgit_init_bare')
+        vgit_init_switch = self.builder.get_object('vgit_init_bare')
 
         path = vgit_dir.get_current_folder()
 
@@ -62,5 +64,10 @@ class vgit_main:
             self.logger.vgit_general_error("no path name selected\n", self.vgit_log_cb)
             return
 
-        repo.vgit_repo.vgit_init(path, False)
+        if vgit_init_switch.get_state():
+            print('bare')
+        else:
+            print('normal')
+
+        repo.vgit_repo.vgit_init(path, bool(vgit_init_switch.get_state()))
         self.logger.vgit_init(path, self.vgit_log_cb)

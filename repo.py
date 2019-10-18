@@ -1,10 +1,10 @@
 import pygit2
 
+
 class vgit_repo:
     def vgit_clone(path, url):
-        """wraper method for clonnating a repository fro a given url to a given path"""
-        # TODO: report error with call_back
-        # GitError does not seem to work
+        """wraper method for clonnating a
+        repository fro a given url to a given path"""
         try:
             pygit2.clone_repository(url, path)
         except pygit2.GitError as err:
