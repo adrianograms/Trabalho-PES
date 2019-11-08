@@ -13,7 +13,7 @@ except ImportError:
 class vgit_main:
     def __init__(self):
         # create the builder
-        self.glade_file = 'glade/vgit.glade'
+        self.glade_file = '../glade/vgit.glade'
         self.builder = Gtk.Builder()
         self.builder.add_from_file(self.glade_file)
         self.builder.connect_signals(self)
@@ -22,7 +22,8 @@ class vgit_main:
         self.vgit_input = self.builder.get_object('vgit_input')
         self.vgit_log = self.builder.get_object('vgit_log')
         # create the call back
-        self.vgit_log_cb = lambda log: self.vgit_log.get_buffer().insert_at_cursor(log)
+        self.vgit_log_cb = lambda log:  self.vgit_log.get_buffer()          \
+                                                     .insert_at_cursor(log)
         self.window.show()
         # start the logs
         self.logger = logs.vgit_logger()
@@ -43,7 +44,8 @@ class vgit_main:
         path = vgit_dir.get_current_folder()
 
         if path is None:
-            self.logger.vgit_general_error("no path name selected\n", self.vgit_log_cb)
+            self.logger.vgit_general_error("no path name selected\n",
+                                           self.vgit_log_cb)
             return
 
         # log that the clone has started
@@ -55,13 +57,15 @@ class vgit_main:
 
     def vgit_init_start_clicked_cb(self, object, data=None):
         vgit_dir = self.builder.get_object('vgit_dir')
-        vgit_init_bare = self.builder.get_object('vgit_init_bare')
+        # FIXME:
+        # vgit_init_bare = self.builder.get_object('vgit_init_bare')
         vgit_init_switch = self.builder.get_object('vgit_init_bare')
 
         path = vgit_dir.get_current_folder()
 
         if path is None:
-            self.logger.vgit_general_error("no path name selected\n", self.vgit_log_cb)
+            self.logger.vgit_general_error("no path name selected\n",
+                                           self.vgit_log_cb)
             return
 
         if vgit_init_switch.get_state():

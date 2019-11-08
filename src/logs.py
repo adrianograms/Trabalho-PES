@@ -8,7 +8,7 @@ class vgit_logger:
         with open(self.logs_path, 'r') as file:
             content = file.readlines()
 
-        self.logs = [line for line in content]
+            self.logs = [line for line in content]
 
     def current_time(self):
         return time.strftime("[%Y-%m-%d %H:%M:%S]", time.localtime())

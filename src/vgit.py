@@ -7,7 +7,7 @@ gi.require_version('Gtk', '3.0')
 try:
     from gi.repository import Gtk
 except ImportError:
-    raise
+    raise 'Fail to get Gtk dependency'
 
 
 def main():

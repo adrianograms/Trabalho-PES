@@ -1,12 +1,17 @@
 import unittest
-# import vgit
-# import repo
-import logs
+import os
+import sys
+sys.path.append('../src/')
 
+from src import logs
+from src import repo
+
+
+path_to_log_file = '../tests/test_log.txt'
 
 class vgit_logs_test(unittest.TestCase):
     def setUp(self):
-        self.logger = logs.vgit_logger('test_log.txt')
+        self.logger = logs.vgit_logger(path_to_log_file)
         self.url = "test url"
         self.path = "test path"
 
@@ -37,5 +42,14 @@ class vgit_logs_test(unittest.TestCase):
         self.logger.vgit_init(self.path, test_cb)
 
 
+class vgit_inti_test(unittest.TestCase):
+    def setUp(self):
+        os.system('mkdir init_test')
+        os.system('cd mkdir test')
+        self.repo = repo.vgit_repo
+
+        # TODO: finish
+
+
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main(verbosity=2)
