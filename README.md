@@ -40,17 +40,17 @@ $ pip3 install coverage
 # Features:
 | Features              | Backend | GUI |
 |:----------------------|:-------:|:---:|
-| git-clone             | ❌      | ❌  |
+| git-clone             | ✔️      | ✔️  |
 | git-pull              | ️❌      | ️❌  |
-| git-push              | ❌️      | ❌  |
-| git-init              | ❌️      | ❌  |
+| git-push              | ✔️      | ❌  |
+| git-init              | ✔️      | ✔️  |
 | git-merge             | ❌️      | ❌  |
-| git-clone             | ❌️      | ❌  |
+| log                   | ✔️      | ✔️  |
 | git-remote            | ️❌      | ️❌  |
 | git-merge             | ❌️      | ❌  |
 | git-fetch             | ❌️      | ❌  |
-| git-add/remove        | ❌      | ❌  |
-| git-commit            | ❌      | ❌  |
+| git-add/remove        | ✔️      | ✔️  |
+| git-commit            | ✔️      | ✔️  |
 | git-reverse           | ❌      | ❌  |
 | git-stash             | ❌      | ❌  |
 | Historico de commits  | ❌      | ❌  |
