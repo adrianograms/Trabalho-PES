@@ -20,7 +20,7 @@ class vgit_main:
         # load the widgets
         self.window = self.builder.get_object('vgit_main')
         self.vgit_input = self.builder.get_object('vgit_input')
-        self.vgit_log = self.builder.get_object('vgit_log')
+        self.vgit_log = self.builder.get_object('vgit_logs')
         # create the call back
         self.vgit_log_cb = lambda log:  self.vgit_log.get_buffer()          \
                                                      .insert_at_cursor(log)
@@ -31,17 +31,17 @@ class vgit_main:
         # create the call back
 
     def vgit_main_destroy_cb(self, object, data=None):
-        """call back for when closing the main vgit window"""
         self.logger.vgit_close_logs()
         Gtk.main_quit()
 
-    def vgit_clone_start_clicked_cb(self, button, data=None):
-        """call back to star clone"""
-        vgit_clone_url = self.builder.get_object('vgit_clone_url')
-        vgit_dir = self.builder.get_object('vgit_dir')
+    def vgit_clone_button_clicked(self, button, data=None):
 
-        url = vgit_clone_url.get_text()
-        path = vgit_dir.get_current_folder()
+
+        url = self.builder.get_object('vgit_clone_url_entry').get_text()
+        path = self.builder.get_object('vgit_dir').get_current_folder()
+
+        print("clone with: ", url)
+        print("to path: ", path)
 
         if path is None:
             self.logger.vgit_general_error("no path name selected\n",
@@ -55,7 +55,7 @@ class vgit_main:
         # log that the clone has ended
         self.logger.vigt_clone_finish(self.vgit_log_cb)
 
-    def vgit_init_start_clicked_cb(self, object, data=None):
+    def vgit_init_button_clicked(self, object, data=None):
         vgit_dir = self.builder.get_object('vgit_dir')
         # FIXME:
         # vgit_init_bare = self.builder.get_object('vgit_init_bare')
