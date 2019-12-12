@@ -96,3 +96,25 @@ class vgit_repo(metaclass=singleton):
                                   'Message: ',
                                   commit.message,
                                   '']))
+
+    def vgit_push(self, path, message, user_name_commiter, user_name_author,
+                                    email_commiter, email_author, branch,
+                                    user_name_pusher, user_passoword_pusher):
+        try:
+            repo = Repository(path)
+            index = repo.index
+            reference='refs/heads/' + branch
+            tree = index.write_tree()
+            author = pygit2.Signature(user_name_author, email_author)
+            commiter = pygit2.Signature(user_name_commiter, email_commiter)
+            oid = repo.create_commit(reference, author, commiter, message, tree, [repo.head.target])
+            credentials = pygit2.UserPass(user_name_pusher,user_passoword_pusher)
+            remo = repo.remotes["origin"]
+            remo.credentials = credentials
+            aux = remo.url
+            repo.remotes.set_push_url(user_name_pusher,aux)
+            callbacks = pygit2.RemoteCallbacks(credentials=credentials)
+            remo.push([reference],callbacks=callbacks)
+        except pygit2.GitError as err:
+            print(err)
+
