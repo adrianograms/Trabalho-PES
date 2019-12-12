@@ -1,9 +1,0 @@
-[2019-09-04 14:39:12] clonning from -> https://github.com/Mulling/neander to -> /home/mulling/vgit/clone_test
-[2019-09-04 14:39:14] clone finished
-[2019-09-05 18:36:28] clonning from -> https://github.com/Mulling/neander to -> /home/mulling/vgit/teste
-[2019-09-05 18:37:36] clonning from -> https://github.com/Mulling/neander to -> /home/mulling/vgit/teste
-[2019-09-05 18:37:39] clonning from -> https://github.com/Mulling/neander to -> /home/mulling/vgit/teste
-[2019-09-05 18:37:40] clonning from -> https://github.com/Mulling/neander to -> /home/mulling/vgit/teste
-[2019-09-05 18:46:12] clonning from -> https://github.com/Mulling/neander to -> /home/mulling/vgit/teste
-[2019-09-05 18:46:17] clone finished
-[2019-09-19 00:25:10]repository created on -> /home/mulling/vgit/novo

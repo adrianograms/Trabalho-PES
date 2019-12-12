@@ -35,7 +35,7 @@ $ pip3 install coverage
 * PyUnit (unittest)
 
 # Estrutura do sistema
-![Diagrama do programa](Diagrama_Trabalho.jpeg)
+![...](waste_of_fucking_time.jpeg)
 
 # Features:
 | Features              | Backend | GUI |

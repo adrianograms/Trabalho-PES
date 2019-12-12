@@ -7,7 +7,8 @@ from src import logs
 from src import repo
 
 
-path_to_log_file = '../tests/test_log.txt'
+# TODO:fix this
+
 
 class vgit_logs_test(unittest.TestCase):
     def setUp(self):

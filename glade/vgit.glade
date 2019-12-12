@@ -2,338 +2,350 @@
 <!-- Generated with glade 3.22.1 -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
+  <object class="GtkFileFilter" id="filefilter1"/>
   <object class="GtkWindow" id="vgit_main">
     <property name="name">vgit_main</property>
     <property name="can_focus">True</property>
     <property name="window_position">center</property>
     <signal name="destroy" handler="vgit_main_destroy_cb" swapped="no"/>
     <child>
-      <placeholder/>
-    </child>
-    <child>
       <object class="GtkBox">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
         <child>
           <object class="GtkBox">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="border_width">10</property>
-            <property name="orientation">vertical</property>
             <child>
-              <object class="GtkFileChooserButton" id="vgit_dir">
-                <property name="name">vgit_folder_finder</property>
+              <object class="GtkBox">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="action">select-folder</property>
-                <property name="preview_widget_active">False</property>
-                <property name="show_hidden">True</property>
-                <property name="use_preview_label">False</property>
-                <property name="title" translatable="yes">Select folder</property>
-                <property name="width_chars">256</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="padding">8</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkNotebook">
-                <property name="width_request">300</property>
-                <property name="height_request">300</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="tab_pos">left</property>
-                <property name="scrollable">True</property>
-                <property name="enable_popup">True</property>
+                <property name="border_width">10</property>
+                <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkFixed">
+                  <object class="GtkFileChooserButton" id="vgit_dir">
+                    <property name="name">vgit_folder_finder</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="action">select-folder</property>
+                    <property name="preview_widget_active">False</property>
+                    <property name="show_hidden">True</property>
+                    <property name="use_preview_label">False</property>
+                    <property name="title" translatable="yes">Select folder</property>
+                    <signal name="selection-changed" handler="vgit_dir_current_folder_changed" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="padding">8</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkNotebook">
+                    <property name="width_request">300</property>
+                    <property name="height_request">300</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="tab_pos">bottom</property>
+                    <property name="scrollable">True</property>
+                    <property name="enable_popup">True</property>
                     <child>
-                      <object class="GtkEntry" id="vgit_clone_url_entry">
-                        <property name="width_request">170</property>
-                        <property name="height_request">36</property>
+                      <object class="GtkFixed">
+                        <property name="width_request">300</property>
+                        <property name="height_request">300</property>
                         <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="margin_left">10</property>
-                        <property name="margin_right">10</property>
-                        <property name="margin_top">10</property>
-                        <property name="margin_bottom">10</property>
-                        <property name="visibility">False</property>
-                        <property name="invisible_char">*</property>
-                        <property name="placeholder_text" translatable="yes">URL</property>
-                        <property name="input_purpose">password</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkButton" id="vgit_clone_button">
-                        <property name="label" translatable="yes">Clone URL</property>
-                        <property name="width_request">100</property>
-                        <property name="height_request">32</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="receives_default">True</property>
-                        <property name="margin_left">10</property>
-                        <property name="margin_right">10</property>
-                        <property name="margin_top">10</property>
-                        <property name="margin_bottom">10</property>
-                        <signal name="activate" handler="vgit_clone_button_clicked" swapped="no"/>
+                        <property name="can_focus">False</property>
+                        <property name="border_width">5</property>
+                        <child>
+                          <object class="GtkEntry" id="vgit_clone_url_entry">
+                            <property name="width_request">280</property>
+                            <property name="height_request">35</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="margin_left">10</property>
+                            <property name="margin_right">10</property>
+                            <property name="margin_top">10</property>
+                            <property name="margin_bottom">10</property>
+                            <property name="placeholder_text" translatable="yes">URL</property>
+                            <property name="input_purpose">password</property>
+                          </object>
+                          <packing>
+                            <property name="y">190</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkButton" id="vgit_clone_button">
+                            <property name="label" translatable="yes">Clone</property>
+                            <property name="width_request">100</property>
+                            <property name="height_request">35</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">True</property>
+                            <property name="margin_left">10</property>
+                            <property name="margin_right">10</property>
+                            <property name="margin_top">10</property>
+                            <property name="margin_bottom">10</property>
+                            <signal name="clicked" handler="vgit_clone_button_click" swapped="no"/>
+                          </object>
+                          <packing>
+                            <property name="y">235</property>
+                          </packing>
+                        </child>
                       </object>
                       <packing>
-                        <property name="y">245</property>
+                        <property name="tab_fill">False</property>
                       </packing>
                     </child>
-                  </object>
-                  <packing>
-                    <property name="tab_fill">False</property>
-                  </packing>
-                </child>
-                <child type="tab">
-                  <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Clone</property>
-                  </object>
-                  <packing>
-                    <property name="tab_fill">False</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkFixed">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <child>
-                      <object class="GtkEntry" id="vgit_init_name_entry">
-                        <property name="width_request">168</property>
-                        <property name="height_request">35</property>
+                    <child type="tab">
+                      <object class="GtkLabel">
                         <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="margin_left">10</property>
-                        <property name="margin_right">10</property>
-                        <property name="margin_top">10</property>
-                        <property name="margin_bottom">10</property>
-                        <property name="placeholder_text" translatable="yes">Name</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">Clone</property>
                       </object>
+                      <packing>
+                        <property name="tab_fill">False</property>
+                      </packing>
                     </child>
                     <child>
-                      <object class="GtkButton" id="vgit_init_button">
+                      <object class="GtkFixed">
+                        <property name="width_request">300</property>
+                        <property name="height_request">300</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="border_width">5</property>
+                        <property name="resize_mode">queue</property>
+                        <child>
+                          <object class="GtkButton" id="vgit_init_button">
+                            <property name="label" translatable="yes">Init</property>
+                            <property name="width_request">100</property>
+                            <property name="height_request">35</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">True</property>
+                            <property name="margin_left">10</property>
+                            <property name="margin_right">10</property>
+                            <property name="margin_top">10</property>
+                            <property name="margin_bottom">10</property>
+                            <signal name="clicked" handler="vgit_init_button_click" swapped="no"/>
+                          </object>
+                          <packing>
+                            <property name="y">235</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkToggleButton" id="vgit_init_bare_toggle">
+                            <property name="label" translatable="yes">Bare</property>
+                            <property name="width_request">100</property>
+                            <property name="height_request">35</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">True</property>
+                            <property name="margin_left">10</property>
+                            <property name="margin_right">10</property>
+                            <property name="margin_top">10</property>
+                            <property name="margin_bottom">10</property>
+                            <property name="border_width">0</property>
+                          </object>
+                          <packing>
+                            <property name="x">180</property>
+                            <property name="y">235</property>
+                          </packing>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="position">1</property>
+                        <property name="reorderable">True</property>
+                        <property name="detachable">True</property>
+                      </packing>
+                    </child>
+                    <child type="tab">
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
                         <property name="label" translatable="yes">Init</property>
-                        <property name="width_request">100</property>
-                        <property name="height_request">35</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="receives_default">True</property>
-                        <property name="margin_left">10</property>
-                        <property name="margin_right">10</property>
-                        <property name="margin_top">10</property>
-                        <property name="margin_bottom">10</property>
                       </object>
                       <packing>
-                        <property name="y">243</property>
+                        <property name="position">1</property>
+                        <property name="tab_fill">False</property>
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkToggleButton" id="vgit_bare_toggle">
-                        <property name="label" translatable="yes">Bare</property>
-                        <property name="width_request">100</property>
-                        <property name="height_request">35</property>
+                      <object class="GtkFixed">
+                        <property name="width_request">300</property>
+                        <property name="height_request">300</property>
                         <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="receives_default">True</property>
-                        <property name="margin_left">10</property>
-                        <property name="margin_right">10</property>
-                        <property name="margin_top">10</property>
-                        <property name="margin_bottom">10</property>
-                        <property name="border_width">0</property>
+                        <property name="can_focus">False</property>
+                        <property name="border_width">5</property>
                       </object>
                       <packing>
-                        <property name="y">49</property>
+                        <property name="position">2</property>
+                        <property name="tab_fill">False</property>
+                      </packing>
+                    </child>
+                    <child type="tab">
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">Add</property>
+                      </object>
+                      <packing>
+                        <property name="position">2</property>
+                        <property name="tab_fill">False</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkFixed">
+                        <property name="width_request">300</property>
+                        <property name="height_request">300</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="border_width">5</property>
+                      </object>
+                      <packing>
+                        <property name="position">3</property>
+                      </packing>
+                    </child>
+                    <child type="tab">
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">Commit</property>
+                      </object>
+                      <packing>
+                        <property name="position">3</property>
+                        <property name="tab_fill">False</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkFixed">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                      </object>
+                      <packing>
+                        <property name="position">4</property>
+                      </packing>
+                    </child>
+                    <child type="tab">
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">Push</property>
+                      </object>
+                      <packing>
+                        <property name="position">4</property>
+                        <property name="tab_fill">False</property>
                       </packing>
                     </child>
                   </object>
                   <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">False</property>
                     <property name="position">1</property>
-                  </packing>
-                </child>
-                <child type="tab">
-                  <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Init</property>
-                  </object>
-                  <packing>
-                    <property name="position">1</property>
-                    <property name="tab_fill">False</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkFixed">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                  </object>
-                  <packing>
-                    <property name="position">2</property>
-                  </packing>
-                </child>
-                <child type="tab">
-                  <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Add</property>
-                  </object>
-                  <packing>
-                    <property name="position">2</property>
-                    <property name="tab_fill">False</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkFixed">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                  </object>
-                  <packing>
-                    <property name="position">3</property>
-                  </packing>
-                </child>
-                <child type="tab">
-                  <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Commit</property>
-                  </object>
-                  <packing>
-                    <property name="position">3</property>
-                    <property name="tab_fill">False</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkFixed">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                  </object>
-                  <packing>
-                    <property name="position">4</property>
-                  </packing>
-                </child>
-                <child type="tab">
-                  <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Push</property>
-                  </object>
-                  <packing>
-                    <property name="position">4</property>
-                    <property name="tab_fill">False</property>
                   </packing>
                 </child>
               </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">False</property>
-                <property name="position">1</property>
+                <property name="position">0</property>
               </packing>
             </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkBox">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="border_width">20</property>
-            <property name="orientation">vertical</property>
             <child>
-              <object class="GtkNotebook">
+              <object class="GtkBox">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
+                <property name="can_focus">False</property>
+                <property name="border_width">10</property>
+                <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkScrolledWindow">
-                    <property name="width_request">300</property>
-                    <property name="height_request">300</property>
+                  <object class="GtkNotebook">
+                    <property name="width_request">400</property>
+                    <property name="height_request">200</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="border_width">5</property>
-                    <property name="shadow_type">in</property>
                     <child>
-                      <object class="GtkTextView" id="vgit_logs">
-                        <property name="width_request">300</property>
-                        <property name="height_request">300</property>
+                      <object class="GtkScrolledWindow">
+                        <property name="width_request">500</property>
+                        <property name="height_request">230</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="hscroll_policy">natural</property>
-                        <property name="vscroll_policy">natural</property>
-                        <property name="editable">False</property>
-                        <property name="left_margin">5</property>
-                        <property name="right_margin">5</property>
-                        <property name="top_margin">5</property>
-                        <property name="bottom_margin">5</property>
-                        <property name="cursor_visible">False</property>
-                        <property name="monospace">True</property>
+                        <property name="border_width">5</property>
+                        <property name="shadow_type">in</property>
+                        <child>
+                          <object class="GtkTextView" id="vgit_commits">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="editable">False</property>
+                            <property name="cursor_visible">False</property>
+                            <property name="accepts_tab">False</property>
+                            <property name="monospace">True</property>
+                          </object>
+                        </child>
                       </object>
                     </child>
-                  </object>
-                </child>
-                <child type="tab">
-                  <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Vgit Logs</property>
+                    <child type="tab">
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">Commits</property>
+                      </object>
+                      <packing>
+                        <property name="tab_fill">False</property>
+                      </packing>
+                    </child>
                   </object>
                   <packing>
-                    <property name="tab_fill">False</property>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkScrolledWindow">
-                    <property name="width_request">300</property>
-                    <property name="height_request">300</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="border_width">5</property>
-                    <property name="shadow_type">in</property>
-                    <child>
-                      <object class="GtkTextView" id="vgit_commits">
-                        <property name="width_request">300</property>
-                        <property name="height_request">500</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="editable">False</property>
-                      </object>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
-                <child type="tab">
                   <object class="GtkLabel">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Commits</property>
+                    <property name="label" translatable="yes">            _ _   
+__   ____ _(_) |_ 
+\ \ / / _` | | __|
+ \ V / (_| | | |_ 
+  \_/ \__, |_|\__|
+      |___/ </property>
                   </object>
                   <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
                     <property name="position">1</property>
-                    <property name="tab_fill">False</property>
                   </packing>
                 </child>
               </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">0</property>
+                <property name="position">1</property>
               </packing>
             </child>
           </object>
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="vgit_msg">
+            <property name="name">vgit_msg</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="margin_top">10</property>
+            <property name="margin_bottom">10</property>
+            <property name="label" translatable="yes">Welcome to vgit</property>
+            <property name="justify">right</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
             <property name="position">1</property>
           </packing>
         </child>
