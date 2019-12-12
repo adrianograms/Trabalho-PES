@@ -23,6 +23,7 @@ class vgit_main(metaclass=singleton):
         self.window = self.builder.get_object('vgit_main')
         self.logger = self.builder.get_object('vgit_msg')
         self.commit = self.builder.get_object('vgit_commits')
+        self.ignore = self.builder.get_object('vgit_ignore_buffer')
 
         # create the logger callback
         self.vgit_log_cb = lambda log:  self.logger.set_text(log)
@@ -61,14 +62,29 @@ class vgit_main(metaclass=singleton):
         path = self.builder.get_object('vgit_dir').get_current_folder()
         bare = self.builder.get_object('vgit_init_bare_toggle').get_active()
 
+        if bare:
+            print("bare")
+        else:
+            print("no")
+
         if path is None:
             self.logs.vgit_general_error("No path name...", self.vgit_log_cb)
             return
 
         # create the repository
-        if self.repo.vgit_init(path, bare):
+        if self.repo.vgit_init(path, self.vgit_log_cb, bare=bare):
             # log that a repository was created
             self.logs.vgit_init(path, self.vgit_log_cb)
 
     def vgit_dir_current_folder_changed(self, object, data=None):
-        print("loading commits...")
+        # TODO: load the contents of the git ignore into the ignore text buffer
+        self.commit.get_buffer().set_text("")
+        self.repo.vgit_load_repo(path=self.builder.get_object('vgit_dir').get_current_folder())
+        self.repo.vgit_commits(lambda log: self.commit.get_buffer().insert_at_cursor(log))
+
+    def get_i(self):
+        return self.ignore
+
+    def vgit_ignore_save_click(self, button, data=None):
+        # TODO: find a way to serialize the text buffer
+        pass

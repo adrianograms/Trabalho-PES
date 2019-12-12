@@ -6,13 +6,8 @@ sys.path.append('../src/')
 from src import logs
 from src import repo
 
-
-# TODO:fix this
-
-
 class vgit_logs_test(unittest.TestCase):
     def setUp(self):
-        self.logger = logs.vgit_logger(path_to_log_file)
         self.url = "test url"
         self.path = "test path"
 
@@ -29,7 +24,7 @@ class vgit_logs_test(unittest.TestCase):
         self.logger.vgit_clone_finish(test_cb)
 
     def test_vgit_general_error(self):
-        what = "something whent wrong"
+        what = ""
 
         def test_cb(log):
             self.assertEqual(log, self.logger.logs[0])
@@ -46,10 +41,12 @@ class vgit_logs_test(unittest.TestCase):
 class vgit_inti_test(unittest.TestCase):
     def setUp(self):
         os.system('mkdir init_test')
-        os.system('cd mkdir test')
-        self.repo = repo.vgit_repo
+        os.system('cd init_test')
 
-        # TODO: finish
+
+    def cleanUp(self):
+        os.system('cd ..')
+        os.system('rm -rf init_test')
 
 
 if __name__ == '__main__':

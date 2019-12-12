@@ -4,11 +4,14 @@ from pygit2    import Repository
 from singleton import singleton
 
 class vgit_repo(metaclass=singleton):
-    def __init__(self, path=None):
+    def __init__(self):
+        self.repo = None
+
+    def vgit_load_repo(self, path):
         if path is None:
             self.repo = None
             return
-
+        print('load .git from: ' + path)
         try:
             self.repo = Repository(path)
         except pygit2.GitError as err:
@@ -17,6 +20,8 @@ class vgit_repo(metaclass=singleton):
             self.repo = None
         except pygit2.InvalidSpecError as err:
             self.repo = None
+        finally:
+            print("ok")
 
     def vgit_clone(self, path, url, log_cb):
         """Wraper method to clone a
@@ -30,7 +35,6 @@ class vgit_repo(metaclass=singleton):
         except pygit2.InvalidSpecError as err:
             log_cb(err)
 
-
     def vgit_init(self, path, log_cb, bare=False):
         """Wraper method to init a repository in given `path'"""
         try:
@@ -41,12 +45,14 @@ class vgit_repo(metaclass=singleton):
             log_cb(err)
         except pygit2.InvalidSpecError as err:
             log_cb(err)
+        finally:
+            return True
 
     def vgit_add(self, log_cb):
         """Wraper method to add all files to a commit."""
         try:
             if self.repo is None:
-                log_cb("Could not find the .git file in the current directory")
+                log_cb("No .git in current directory. Use `init' to crete a new repository.")
                 return False
 
             self.repo.index.add_all()
@@ -59,9 +65,7 @@ class vgit_repo(metaclass=singleton):
         except pygit2.InvalidSpecError as err:
             log_cb(err)
 
-
-            # TODO: fix
-    def vgit_commit(path, user_name_commiter, user_name_author,
+    def vgit_commit(self, path, user_name_commiter, user_name_author,
                     email_commiter, email_author, branch, message):
         """This function do the command commit -m "message" `path' is the the
         path to .git of the repository `user_name_commiter' and
@@ -81,3 +85,14 @@ class vgit_repo(metaclass=singleton):
                                message, tree, [repo.head.target])
         except pygit2.GitError as err:
             print(err)
+
+    def vgit_commits(self, log_cb):
+        if self.repo is None:
+            log_cb("No commits...")
+        else:
+            for commit in self.repo.walk(self.repo[self.repo.head.target].id, pygit2.GIT_SORT_TIME):
+                log_cb('\n'.join(['Commit: #{}'.format(commit.tree_id.hex),
+                                  'Author: {} <{}>'.format(commit.author.name, commit.author.email),
+                                  'Message: ',
+                                  commit.message,
+                                  '']))
