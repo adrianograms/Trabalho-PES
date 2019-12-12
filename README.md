@@ -1,24 +1,25 @@
 # vgit
 A ferramenta vgit tem a finalidade de tornar o uso do git mais fácil e intuitivo.
 
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/adrianograms/vgit.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/adrianograms/vgit/alerts/)
 
 # Dependências:
-#### Gerenciadas pelo pip3
+#### Gerenciadas pelo pip
 ##### [PyGit2](https://www.pygit2.org/)
 `
-$ pip3 install pygit2
+$ pip install pygit2
 `
 ##### [pyinstaller](https://www.pyinstaller.org/)
 `
-$ pip3 install pyinstaller
+$ pip install pyinstaller
 `
 ##### [radon](https://radon.readthedocs.io/en/latest/)
 `
-$ pip3 install radon
+$ pip install radon
 `
 ##### [coverage](https://coverage.readthedocs.io/en/latest/)
 `
-$ pip3 install coverage
+$ pip install coverage
 `
 
 #### Externas:
