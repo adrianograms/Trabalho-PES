@@ -49,13 +49,12 @@ class vgit_main(metaclass=singleton):
         self.logs.vgit_clone_started(url, path, self.vgit_log_cb)
 
         # start the clone
-        self.repo.vgit_clone(path, url, self.vgit_log_cb)
+        if self.repo.vgit_clone(path, url, self.vgit_log_cb):
+            # log that the clone has ended
+            self.logs.vgit_clone_finish(self.vgit_log_cb)
 
-        # log that the clone has ended
-        self.logs.vgit_clone_finish(self.vgit_log_cb)
-
-        # load the commits of the clonned repository
-        self.vgit_dir_current_folder_changed(self)
+            # load the commits of the clonned repository
+            self.vgit_dir_current_folder_changed(self)
 
 
     def vgit_init_button_click(self, object, data=None):

@@ -11,42 +11,39 @@ class vgit_repo(metaclass=singleton):
         if path is None:
             self.repo = None
             return
-        print('load .git from: ' + path)
         try:
             self.repo = Repository(path)
-        except pygit2.GitError as err:
+        except ValueError as err:
             self.repo = None
-        except pygit2.AlreadyExistsError as err:
+        except Exception as err:
             self.repo = None
-        except pygit2.InvalidSpecError as err:
-            self.repo = None
-        finally:
-            print("ok")
 
     def vgit_clone(self, path, url, log_cb):
         """Wraper method to clone a
         repository from a given `url' to a given `path'"""
         try:
             pygit2.clone_repository(url, path)
-        except pygit2.GitError as err:
-            log_cb(err)
-        except pygit2.AlreadyExistsError as err:
-            log_cb(err)
-        except pygit2.InvalidSpecError as err:
-            log_cb(err)
+        except ValueError as err:
+            log_cb(str(err))
+            return False
+        except Exception as err:
+            log_cb(str(err))
+            return False
+
+        return True
 
     def vgit_init(self, path, log_cb, bare=False):
         """Wraper method to init a repository in given `path'"""
         try:
             pygit2.init_repository(path, bare)
-        except pygit2.GitError as err:
-            log_cb(err)
-        except pygit2.AlreadyExistsError as err:
-            log_cb(err)
-        except pygit2.InvalidSpecError as err:
-            log_cb(err)
-        finally:
-            return True
+        except ValueError as err:
+            log_cb(str(err))
+            return False
+        except Exception as err:
+            log_cb(str(err))
+            return False
+
+        return True
 
     def vgit_add(self, log_cb):
         """Wraper method to add all files to a commit."""
@@ -58,12 +55,14 @@ class vgit_repo(metaclass=singleton):
             self.repo.index.add_all()
             self.repo.index.write()
 
-        except pygit2.GitError as err:
-            log_cb(err)
-        except pygit2.AlreadyExistsError as err:
-            log_cb(err)
-        except pygit2.InvalidSpecError as err:
-            log_cb(err)
+        except ValueError as err:
+            log_cb(str(err))
+            return False
+        except Exception as err:
+            log_cb(str(err))
+            return False
+
+        return True
 
     def vgit_commit(self, path, user_name_commiter, user_name_author,
                     email_commiter, email_author, branch, message):
@@ -83,8 +82,15 @@ class vgit_repo(metaclass=singleton):
             commiter = pygit2.Signature(user_name_commiter, email_commiter)
             repo.create_commit(reference, author, commiter,
                                message, tree, [repo.head.target])
-        except pygit2.GitError as err:
-            print(err)
+
+        except ValueError as err:
+            log_cb(str(err))
+            return False
+        except Exception as err:
+            log_cb(str(err))
+            return False
+
+        return True
 
     def vgit_commits(self, log_cb):
         if self.repo is None:
@@ -115,6 +121,12 @@ class vgit_repo(metaclass=singleton):
             repo.remotes.set_push_url(user_name_pusher,aux)
             callbacks = pygit2.RemoteCallbacks(credentials=credentials)
             remo.push([reference],callbacks=callbacks)
-        except pygit2.GitError as err:
-            print(err)
 
+        except ValueError as err:
+            log_cb(str(err))
+            return False
+        except Exception as err:
+            log_cb(str(err))
+            return False
+
+        return True
