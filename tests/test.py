@@ -6,6 +6,7 @@ sys.path.append('../src/')
 from src import logs
 from src import repo
 
+
 class vgit_logs_test(unittest.TestCase):
     def setUp(self):
         self.url = "test url"
