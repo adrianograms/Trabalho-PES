@@ -9,6 +9,9 @@
     <property name="window_position">center</property>
     <signal name="destroy" handler="vgit_main_destroy_cb" swapped="no"/>
     <child>
+      <placeholder/>
+    </child>
+    <child>
       <object class="GtkBox">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
@@ -99,7 +102,7 @@
                             <property name="height_request">80</property>
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">TODO: add clone description</property>
+                            <property name="label" translatable="yes">Clone a repository into a directory</property>
                           </object>
                         </child>
                       </object>
@@ -152,7 +155,7 @@
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>
                             <property name="margin_left">10</property>
-                            <property name="margin_right">10</property>
+                            <property name="margin_right">11</property>
                             <property name="margin_top">10</property>
                             <property name="margin_bottom">10</property>
                             <property name="border_width">0</property>
@@ -168,7 +171,7 @@
                             <property name="height_request">80</property>
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">TODO: add Init description</property>
+                            <property name="label" translatable="yes">Create an empty git repository</property>
                           </object>
                         </child>
                       </object>
@@ -271,6 +274,25 @@
                                 <property name="placeholder_text" translatable="yes">File</property>
                               </object>
                             </child>
+                            <child>
+                              <object class="GtkButton" id="vgit_add_add_all">
+                                <property name="label" translatable="yes">All</property>
+                                <property name="width_request">35</property>
+                                <property name="height_request">35</property>
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="receives_default">True</property>
+                                <property name="margin_left">10</property>
+                                <property name="margin_right">10</property>
+                                <property name="margin_top">10</property>
+                                <property name="margin_bottom">10</property>
+                                <signal name="clicked" handler="vgit_add_add_all_click" swapped="no"/>
+                              </object>
+                              <packing>
+                                <property name="x">105</property>
+                                <property name="y">45</property>
+                              </packing>
+                            </child>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -301,6 +323,91 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="border_width">5</property>
+                        <child>
+                          <object class="GtkScrolledWindow">
+                            <property name="width_request">280</property>
+                            <property name="height_request">135</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="margin_left">10</property>
+                            <property name="margin_right">10</property>
+                            <property name="margin_top">10</property>
+                            <property name="margin_bottom">10</property>
+                            <property name="shadow_type">in</property>
+                            <child>
+                              <object class="GtkTextView">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkEntry" id="vgit_commit_username">
+                            <property name="width_request">280</property>
+                            <property name="height_request">35</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="margin_left">10</property>
+                            <property name="margin_right">10</property>
+                            <property name="margin_top">10</property>
+                            <property name="margin_bottom">10</property>
+                            <property name="placeholder_text" translatable="yes">Name</property>
+                          </object>
+                          <packing>
+                            <property name="y">145</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkEntry" id="vgit_commit_email">
+                            <property name="width_request">280</property>
+                            <property name="height_request">35</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="margin_left">10</property>
+                            <property name="margin_right">10</property>
+                            <property name="margin_top">10</property>
+                            <property name="margin_bottom">10</property>
+                            <property name="placeholder_text" translatable="yes">Email</property>
+                          </object>
+                          <packing>
+                            <property name="y">190</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkButton">
+                            <property name="label" translatable="yes">Commit</property>
+                            <property name="width_request">100</property>
+                            <property name="height_request">35</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">True</property>
+                            <property name="margin_left">10</property>
+                            <property name="margin_right">10</property>
+                            <property name="margin_top">10</property>
+                            <property name="margin_bottom">10</property>
+                          </object>
+                          <packing>
+                            <property name="y">235</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkEntry">
+                            <property name="width_request">50</property>
+                            <property name="height_request">35</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="margin_left">10</property>
+                            <property name="margin_right">10</property>
+                            <property name="margin_top">10</property>
+                            <property name="margin_bottom">10</property>
+                            <property name="placeholder_text" translatable="yes">Branch</property>
+                          </object>
+                          <packing>
+                            <property name="x">112</property>
+                            <property name="y">235</property>
+                          </packing>
+                        </child>
                       </object>
                       <packing>
                         <property name="position">3</property>

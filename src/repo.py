@@ -1,7 +1,8 @@
 import pygit2
 
-from pygit2    import Repository
+from pygit2 import Repository
 from singleton import singleton
+
 
 class vgit_repo(metaclass=singleton):
     def __init__(self):
@@ -13,9 +14,9 @@ class vgit_repo(metaclass=singleton):
             return
         try:
             self.repo = Repository(path)
-        except ValueError as err:
+        except ValueError:
             self.repo = None
-        except Exception as err:
+        except Exception:
             self.repo = None
 
     def vgit_clone(self, path, url, log_cb):
@@ -45,7 +46,7 @@ class vgit_repo(metaclass=singleton):
 
         return True
 
-    def vgit_add(self, log_cb):
+    def vgit_add_all(self, log_cb):
         """Wraper method to add all files to a commit."""
         try:
             if self.repo is None:
@@ -64,24 +65,24 @@ class vgit_repo(metaclass=singleton):
 
         return True
 
-    def vgit_commit(self, path, user_name_commiter, user_name_author,
-                    email_commiter, email_author, branch, message):
-        """This function do the command commit -m "message" `path' is the the
-        path to .git of the repository `user_name_commiter' and
-        `email_commiter' informations of the autor of the commit
+    def vgit_commit(self, user_name, email, branch, message, log_cb):
+        """Wraper method for the commit -m "message" git command. `user_name' and
+        `email' informations of the autor of the commit
         `user_name_author' and email_author: is the same idea of the
         commiter but for the author `branch' branch which the user
         want's to do the commit `message': message of the commit"""
 
         try:
-            repo = Repository(path)
-            index = repo.index
+            if self.repo is None:
+                log_cb("No .git in current directory. Use `init' to crete a new repository.")
+                return False
+
             reference = 'refs/heads/' + branch
-            tree = index.write_tree()
-            author = pygit2.Signature(user_name_author, email_author)
-            commiter = pygit2.Signature(user_name_commiter, email_commiter)
-            repo.create_commit(reference, author, commiter,
-                               message, tree, [repo.head.target])
+            author = pygit2.Signature(user_name, email)
+            # usando author e commiter como o mesmo ser
+            self.repo.create_commit(reference, author, author, message,
+                                    self.repo.TreeBuilder().write(),
+                                    [self.repo.head.target])
 
         except ValueError as err:
             log_cb(str(err))
@@ -96,16 +97,19 @@ class vgit_repo(metaclass=singleton):
         if self.repo is None:
             log_cb("No commits...")
         else:
-            for commit in self.repo.walk(self.repo[self.repo.head.target].id, pygit2.GIT_SORT_TIME):
+            for commit in self.repo.walk(self.repo[self.repo.head.target].id,
+                                         pygit2.GIT_SORT_TIME):
                 log_cb('\n'.join(['Commit: #{}'.format(commit.tree_id.hex),
-                                  'Author: {} <{}>'.format(commit.author.name, commit.author.email),
+                                  'Author: {} <{}>'.format(commit.author.name,
+                                                           commit.author.email),
                                   'Message: ',
                                   commit.message,
                                   '']))
 
     def vgit_push(self, path, message, user_name_commiter, user_name_author,
-                                    email_commiter, email_author, branch,
-                                    user_name_pusher, user_passoword_pusher):
+                  email_commiter, email_author, branch,
+                  user_name_pusher, user_passoword_pusher,
+                  log_cb):
         try:
             repo = Repository(path)
             index = repo.index

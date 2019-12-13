@@ -12,6 +12,7 @@ except ImportError:
 
 glade_file = '../glade/vgit.glade'
 
+
 class vgit_main(metaclass=singleton):
     def __init__(self):
         # create the builder
@@ -24,6 +25,7 @@ class vgit_main(metaclass=singleton):
         self.logger = self.builder.get_object('vgit_msg')
         self.commit = self.builder.get_object('vgit_commits')
         self.ignore = self.builder.get_object('vgit_ignore_buffer')
+        self.direct = self.builder.get_object('vgit_dir')
 
         # create the logger callback
         self.vgit_log_cb = lambda log:  self.logger.set_text(log)
@@ -39,10 +41,11 @@ class vgit_main(metaclass=singleton):
 
     def vgit_clone_button_click(self, button, data=None):
         url = self.builder.get_object('vgit_clone_url_entry').get_text()
-        path = self.builder.get_object('vgit_dir').get_current_folder()
+        path = self.direct.get_current_folder()
 
         if path is None:
-            self.logs.vgit_general_error("No path name to clone...", self.vgit_log_cb)
+            self.logs.vgit_general_error("No path name to clone...",
+                                         self.vgit_log_cb)
             return
 
         # log that the clone has started
@@ -56,15 +59,9 @@ class vgit_main(metaclass=singleton):
             # load the commits of the clonned repository
             self.vgit_dir_current_folder_changed(self)
 
-
     def vgit_init_button_click(self, object, data=None):
         path = self.builder.get_object('vgit_dir').get_current_folder()
         bare = self.builder.get_object('vgit_init_bare_toggle').get_active()
-
-        if bare:
-            print("bare")
-        else:
-            print("no")
 
         if path is None:
             self.logs.vgit_general_error("No path name...", self.vgit_log_cb)
@@ -77,13 +74,59 @@ class vgit_main(metaclass=singleton):
 
     def vgit_dir_current_folder_changed(self, object, data=None):
         # TODO: load the contents of the git ignore into the ignore text buffer
+        self.vgit_ignore_load()
         self.commit.get_buffer().set_text("")
-        self.repo.vgit_load_repo(path=self.builder.get_object('vgit_dir').get_current_folder())
-        self.repo.vgit_commits(lambda log: self.commit.get_buffer().insert_at_cursor(log))
+        self.repo.vgit_load_repo(path=self.builder.get_object('vgit_dir')
+                                 .get_current_folder())
+        self.repo.vgit_commits(lambda log: self.commit.get_buffer()
+                               .insert_at_cursor(log))
 
-    def get_i(self):
-        return self.ignore
+    def vgit_ignore_load(self):
+        path_name = self.direct.get_current_folder()
+
+        if path_name is None:
+            self.builder.get_object('vgit_ignore_buffer')\
+                        .get_buffer()\
+                        .set_text("")
+            return
+
+        try:
+            with open(path_name + '/.gitignore', "r") as file:
+                text = ""
+                for line in file:
+                    text += (line)
+                self.builder.get_object('vgit_ignore_buffer')\
+                            .get_buffer()\
+                            .set_text(text)
+
+        except IOError:
+            self.builder.get_object('vgit_ignore_buffer')\
+                        .get_buffer()\
+                        .set_text("")
+
+            return
 
     def vgit_ignore_save_click(self, button, data=None):
-        # TODO: find a way to serialize the text buffer
-        pass
+        text_buffer = self.builder.get_object('vgit_ignore_buffer')\
+                                  .get_buffer()
+        text = text_buffer.get_text(text_buffer.get_start_iter(),
+                                    text_buffer.get_end_iter(),
+                                    False)
+
+        path_name = self.direct.get_current_folder()
+        if path_name is None:
+            print("aaa")
+            self.logs.vgit_general_error("No path name...", self.vgit_log_cb)
+            return
+
+        file_name = path_name + '/.gitignore'
+
+        with open(file_name, "w") as file:
+            file.write(text)
+
+        self.logs.vgit_ignore_save(self.vgit_log_cb)
+
+    def vgit_add_add_all_click(self, button, data=None):
+        # TODO: add all modified files
+        if self.repo.vgit_add_all(self.vgit_log_cb):
+            self.log.vgit_add_all(self.vgit_log_cb)
